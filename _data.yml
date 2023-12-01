@@ -1,11 +1,26 @@
 lang: en
 
 home:
-  welcome: Hello, I am a person that writes stuff.
+  welcome: Let's talk about code <br>and computer graphics !
 
 # Metas plugin https://lume.land/plugins/metas/#description
 metas:
-  site: Blog example
-  description: This is an example of a Lume blog theme
-  twitter: "@misteroom"
+  site: furiouzz's blog
+  description: Code and Computer Graphics
+  twitter: "@furiouzz"
   lang: "=lang"
+
+comments_provider: giscus
+giscus:
+  repo: furiouzz/blog-comments
+  repo-id: R_kgDOKz-0iw
+  category: Announcements
+  category-id: DIC_kwDOKz-0i84CbY-K
+  mapping: og:title
+  strict: 1
+  reactions-enabled: 1
+  emit-metadata: 0
+  input-position: bottom
+  theme: preferred_color_scheme
+  lang: en
+  loading: lazy
