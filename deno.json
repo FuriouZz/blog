@@ -1,6 +1,6 @@
 {
   "imports": {
-    "lume/": "https://deno.land/x/lume@v1.19.4/",
+    "lume/": "https://deno.land/x/lume@v2.0.1/",
     "blog/": "./_submodules/blog/"
   },
   "tasks": {
