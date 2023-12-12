@@ -1,10 +1,10 @@
 {
   "imports": {
     "lume/": "https://deno.land/x/lume@v2.0.1/",
-    "theme/": "./_lume/theme/"
+    "theme/": "./.lume/theme/"
   },
   "tasks": {
-    "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A - --config _lume/config.ts",
+    "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A - --config .lume/config.ts",
     "build": "deno task lume",
     "serve": "deno task lume -s"
   }
