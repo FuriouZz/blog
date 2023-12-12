@@ -10,9 +10,8 @@
         "deno.lint": true,
         "editor.defaultFormatter": "denoland.vscode-deno"
       },
-      "extensions": ["denoland.vscode-deno"]
+      "extensions": ["denoland.vscode-deno", "shd101wyy.markdown-preview-enhanced", "yzhang.markdown-all-in-one"]
     }
   },
-  "remoteUser": "vscode",
-  "postStartCommand": "deno task serve"
+  "remoteUser": "vscode"
 }
