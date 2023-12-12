@@ -43,4 +43,4 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: chrsmsln-blog
-          entrypoint: serve.ts
+          entrypoint: _lume/serve.ts

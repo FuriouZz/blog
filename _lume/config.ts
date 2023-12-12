@@ -1,5 +1,5 @@
 import lume from "lume/mod.ts";
-import blog from "blog/mod.ts";
+import blog from "theme/mod.ts";
 import gl from "npm:date-fns/locale/gl/index.js";
 
 const site = lume();
