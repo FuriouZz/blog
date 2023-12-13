@@ -1,7 +1,6 @@
 ---
 title: Create a blog with Deno and Lume
 author: furiouzz
-draft: true
 tags:
   - javascript
   - deno
@@ -235,6 +234,9 @@ You have to create `.github/workflows/deploy.yml` file with a configuration simi
 name: Deploy
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
