@@ -34,6 +34,7 @@ So in this post, you will learn to:
   * Start a server locally to see your blog
   * Customize your blog
   * Create a page
+  * Share data between multiple pages
   * Create a post
 
 When I created this blog, it was important for me to start writing quickly and not to spend too much time in configuration and customisation. The objective at the end: being focused on writing.
@@ -77,8 +78,7 @@ First you need to install Deno. I invite you to follow the [installation guide](
 
 Once this is done, let's edit `my-blog/deno.json`, the Deno configuration file.
 
-```json
-// my-blog/deno.json
+```json{data-filename=my-blog/deno.json}
 {
   "imports": {
     "lume/": "https://deno.land/x/lume@v2.0.1/",
@@ -98,8 +98,7 @@ Let me explain in detail what is written above:
 
 Before we start our Lume server locally, we will edit `my-blog/.lume/config.ts`. The configuration is quite simple:
 
-```ts
-// my-blog/.lume/config.ts
+```ts {data-filename=my-blog/.lume/config.ts}
 import lume from "lume/mod.ts";
 import blog from "blog/mod.ts";
 
@@ -112,8 +111,7 @@ site.use(blog()); // Use simple-blog theme
 export default site;
 ```
 
-We are so close to seeing what our blog look like. One more step: start the server !
-
+Ready to see our blog? Open your terminal in your directory, then run:
 ```bash
 deno task serve
 ```
@@ -122,30 +120,172 @@ TADA! Your blog is live (locally) at [http://localhost:3000/](http://localhost:3
 
 ![Blog running locally](../../../assets/blog-offline.png)
 
-## Customize our blog
+## Time for customisation!
 
-Let's edit `my-blog/_data.yml`
+Now that our blog works, we will customize it !
 
-```yaml
+Copy [`_data.yml`](https://github.com/lumeland/theme-simple-blog/blob/main/demo/_data.yml) content as explain in [Simple Blog](https://github.com/lumeland/theme-simple-blog/tree/main?tab=readme-ov-file#install-as-a-remote-theme) theme.
+
+Let's edit `my-blog/_data.yml` and copy this content:
+
+```yaml{data-filename=my-blog/_data.yml}
 lang: en
 
 home:
-  welcome: Here my welcome message
+  welcome: A very long welcome message to demonstrate how _data files work!
 
 # Metas plugin https://lume.land/plugins/metas/#description
 metas:
-  site: My Blog
+  site: Here an awesome title!
   description: An example of description
   twitter: "@furiouzz"
   lang: "=lang"
 ```
 
-![Blog running locally](../../../assets/blog-customize.png)
+As explained in [Simple Blog](https://github.com/lumeland/theme-simple-blog/tree/main?tab=readme-ov-file#install-as-a-remote-theme) and in Lume, `_data.yaml` files are custom data that can be shared by all pages in a directory.
 
+As explained in [Shared data - Lume](https://lume.land/docs/creating-pages/shared-data/), `_data.*` files and `_data` directories are custom data that can be shared by all pages in a directory.
+
+By placing `my-blog/_data.yml` at the root of our directory, we make this data visible on every page of our blog.
+
+Let's see the result on the browser:
+
+![Blog running locally](../../../assets/blog-customize.png)
 
 ## Create a page
 
+To create a page, we will create a markdown file in `my-blog/content/pages` directory.
+
+Let's create an **About** page at `my-blog/content/pages/about.md`:
+
+```markdown{data-filename=my-blog/content/pages/about.md}
+---
+title: About
+---
+
+This is an example of an about me page.
+```
+
+You may noticed that file is divided in two parts:
+  * The upper part, called *frontmatter*, is where we set (or override) data of your page
+  * The bottom part is the content of your page
+
+In our page, we overrided the title with `About` and write some text.
+
+If you go back to your browser, you may notice no change in the homepage.
+
+Simple Blog has a menu which can be enabled by adding the `menu` variable.
+
+Let's edit our file:
+
+```markdown{data-filename=my-blog/content/pages/about.md}
+---
+title: About
+menu:
+  visible: true
+  order: 2
+---
+
+This is an example of an about me page.
+```
+
+We made the page visible in the menu and change its index position in the menu.
+
+![About page is visible in the top right menu](../../../assets/blog-menu.png)
+
+OK! Now, let's visit our page.
+
+![Page is displayed without CSS](../../../assets/blog-page-no-css.png)
+
+Oh...we lost our CSS. What happened?
+
+In Lume, it is possible to configure a layout by page as explained in the [documentation](https://lume.land/docs/getting-started/create-a-layout/). We need to use a layout to create our page.
+
+Simple Blog has 5 different layouts:
+  * `base.vto` - the default layout shared by all layouts
+  * `page.vto` - the layout for a page
+  * `post.vto` - the layout for a post
+  * `archive.vto` - the layout for the archive page
+  * `archive_result.vto` - the layout for posts sorted by tags and authors
+
+We need to precise which layout to use by our page.
+
+Again, let's edit our page:
+
+```markdown{data-filename=my-blog/content/pages/about.md}
+---
+title: "About"
+menu:
+  visible: true
+  order: 2
+layout: "layouts/page.vto"
+---
+
+This is an example of an about me page.
+```
+
+TADA!
+
+![Page is displayed with our theme](../../../assets/blog-page-with-css.png)
+
+## Share data with multiple pages
+
+It will come very repititive to precise the layout for every page. As seen before, you can use the `my-blog/content/pages/_data.yml` to set variables in every page present ins `my-blog/content/pages/`
+
+```yaml{data-filename=my-blog/content/pages/_data.yml}
+layout: "layouts/page.vto"
+```
+
+We can use the [`basename` variable](https://lume.land/docs/creating-pages/urls/#basename) introduced in Lume 2 called `basename` to remove `/content/` in our URL.
+
+Instead of `/content/pages/about/` the URL will be formatted as `/pages/about/`.
+
+```yaml{data-filename=my-blog/content/pages/_data.yml}
+layout: "layouts/page.vto"
+basename: "../pages"
+```
 
 ## Create a post
 
+If you understood the logic, this is quite easy to add post.
 
+Let's create one at `my-blog/content/posts/2023/12/15-first-post.md`:
+
+```markdown {data-filename=my-blog/content/posts/2023/12/15-first-post.md}
+---
+title: First post
+author: furiouzz
+tags:
+  - personal
+---
+
+Here my first post
+```
+
+Then edit `my-blog/content/posts/_data.yml` to set default variables for all posts:
+
+```yaml {data-filename=my-blog/content/posts/_data.yml}
+layout: layouts/post.vto
+basename: ../posts
+type: post
+```
+
+You may have noticed that we have added a new variable `type`. Simple blog needs this variable to fetch all posts with [Search - Lume](https://lume.land/plugins/search/). Without it, no posts are displayed in your home page.
+
+Now we are ready to see our post and to write something.
+
+![Post at home page](../../../assets/blog-post-home.png)
+![Post on single page](../../../assets/blog-post-single.png)
+
+## What's next?
+
+Now it's time to write few posts!
+
+In the next post, we will discuss how to deploy our blog with [Deno Deploy](https://deno.land/deploy).
+
+For more information, I invite you to:
+* Read [Lume documentation](https://lume.land/docs/overview/about-lume/)
+* Fork [theme-simple-blog](https://github.com/lumeland/theme-simple-blog/tree/main)
+* Experiment with [Deno](https://deno.com/)
+
+Please, do not hesitate to leave a comment or send me a private message [@furiouzz](https://twitter.com/furiouzz).

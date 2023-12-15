@@ -1,6 +1,7 @@
 ---
 title: Create a blog with Deno and Lume
 author: furiouzz
+draft: true
 tags:
   - javascript
   - deno
