@@ -1,4 +1,4 @@
-import Server from "lume/core/server.ts";
+import { Server } from "./deps/lume.ts";
 
 const server = new Server({
   port: 8000,
