@@ -12,33 +12,38 @@ import shikiji, {
   transformerNotationHighlight,
 } from "./deps/shikiji.ts";
 
+import showLabel from "./plugins/showLabel.ts";
+
 const site = lume({ dest: `.lume/_site` });
 
-site.use(blog()).use(
-  shikiji({
-    highlighter: {
-      themes: ["github-dark", "github-light"],
-      langs: ["javascript", "yaml", "markdown", "bash"],
-    },
-    themes: {
-      dark: "github-dark",
-      light: "github-light",
-    },
-    useColorScheme: true,
-    themeStyles: [
-      cssRulesHighlight,
-      cssRulesErrorLevel,
-      cssRulesFocus,
-      cssRulesDiff,
-    ],
-    transformers: [
-      transformerNotationHighlight(),
-      transformerNotationErrorLevel(),
-      transformerNotationFocus(),
-      transformerNotationDiff(),
-    ],
-  }),
-);
+site
+  .use(blog())
+  .use(showLabel())
+  .use(
+    shikiji({
+      highlighter: {
+        themes: ["github-dark", "github-light"],
+        langs: ["javascript", "yaml", "markdown", "bash"],
+      },
+      themes: {
+        dark: "github-dark",
+        light: "github-light",
+      },
+      useColorScheme: true,
+      themeStyles: [
+        cssRulesHighlight,
+        cssRulesErrorLevel,
+        cssRulesFocus,
+        cssRulesDiff,
+      ],
+      transformers: [
+        transformerNotationHighlight(),
+        transformerNotationErrorLevel(),
+        transformerNotationFocus(),
+        transformerNotationDiff(),
+      ],
+    }),
+  );
 
 site.copy("content/assets", "assets");
 
