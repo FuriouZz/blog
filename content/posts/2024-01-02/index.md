@@ -217,7 +217,7 @@ This file is divided in two parts:
 >
 > Similar to `_data.yml`, [Page data](https://lume.land/docs/creating-pages/page-data/) is custom data assigned to a page.
 >
-> Instead of writting data in the **frontmatter**, you can write it in a separate file matching the page name with an extension `.yml`, `.json`, `.ts` or `.js`.
+> Instead of writing data in the **frontmatter**, you can write it in a separate file matching the page name with an extension `.yml`, `.json`, `.ts` or `.js`.
 >
 > eg.: with `about.md` you can create `about.yml`.
 

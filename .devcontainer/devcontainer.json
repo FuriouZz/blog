@@ -15,7 +15,8 @@
         "denoland.vscode-deno",
         "shd101wyy.markdown-preview-enhanced",
         "yzhang.markdown-all-in-one",
-        "sleistner.vscode-fileutils"
+        "sleistner.vscode-fileutils",
+        "streetsidesoftware.code-spell-checker"
       ]
     }
   },
