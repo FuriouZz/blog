@@ -1,5 +1,5 @@
 {
-  "name": "Deno",
+  "name": "blog",
   "build": {
     "dockerfile": "Dockerfile"
   },
@@ -8,9 +8,16 @@
       "settings": {
         "deno.enable": true,
         "deno.lint": true,
-        "editor.defaultFormatter": "denoland.vscode-deno"
+        "editor.defaultFormatter": "denoland.vscode-deno",
+        "deno.cacheOnSave": true
       },
-      "extensions": ["denoland.vscode-deno", "shd101wyy.markdown-preview-enhanced", "yzhang.markdown-all-in-one"]
+      "extensions": [
+        "denoland.vscode-deno",
+        "shd101wyy.markdown-preview-enhanced",
+        "yzhang.markdown-all-in-one",
+        "sleistner.vscode-fileutils",
+        "streetsidesoftware.code-spell-checker"
+      ]
     }
   },
   "remoteUser": "vscode"

@@ -1,17 +1,59 @@
 import lume from "lume/mod.ts";
-import blog from "./theme/mod.ts";
-import gl from "npm:date-fns/locale/gl/index.js";
+import blog from "theme/mod.ts";
+import shikiji from "shikiji/mod.ts";
 
-const site = lume({
-  dest: `.lume/_site`
-});
+import {
+  cssRulesDiff,
+  cssRulesErrorLevel,
+  cssRulesFocus,
+  cssRulesHighlight,
+  transformerNotationDiff,
+  transformerNotationErrorLevel,
+  transformerNotationFocus,
+  transformerNotationHighlight,
+} from "shikiji/transformers/mod.ts";
 
-site.use(blog({
-  date: {
-    // deno-lint-ignore ban-ts-comment
-    // @ts-ignore
-    locales: { gl },
-  },
-}));
+import picture from "lume/plugins/picture.ts";
+import transformImages from "lume/plugins/transform_images.ts";
+
+import emoji from "./plugins/emoji.ts";
+import showLabel from "./plugins/showLabel.ts";
+import blockquoteStyles from "./plugins/blockquoteStyles.ts";
+
+const site = lume({ dest: `.lume/_site` });
+
+site
+  .use(blog())
+  .use(emoji())
+  .use(blockquoteStyles())
+  .use(picture())
+  .use(transformImages({ cache: ".lume/_cache" }))
+  .use(showLabel())
+  .use(
+    shikiji({
+      highlighter: {
+        themes: ["github-dark", "github-light"],
+        langs: ["javascript", "yaml", "markdown", "bash"],
+      },
+      themes: {
+        dark: "github-dark",
+        light: "github-light",
+      },
+      useColorScheme: true,
+      themeStyles: [
+        cssRulesHighlight,
+        cssRulesErrorLevel,
+        cssRulesFocus,
+        cssRulesDiff,
+      ],
+      transformers: [
+        transformerNotationHighlight(),
+        transformerNotationErrorLevel(),
+        transformerNotationFocus(),
+        transformerNotationDiff(),
+      ],
+    }),
+  );
+
 
 export default site;

@@ -1,6 +1,8 @@
 {
+  "lock": false,
   "imports": {
     "lume/": "https://deno.land/x/lume@v2.0.1/",
+    "shikiji/": "https://deno.land/x/lume_shikiji@0.0.5/",
     "theme/": "./.lume/theme/"
   },
   "tasks": {
