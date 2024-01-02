@@ -7,7 +7,7 @@ tags:
   - deno
   - lume
 excerpt: |
-  For my first post, let's focus on how I created a blog with Deno and Lume.
+  In this post, you will learn how to create a blog with Deno and Lume.
 ---
 
 In my spare time, I love reading articles, writing codes and experimenting new concepts. Projects after projects, most of the time, everything falls in forgetting.
