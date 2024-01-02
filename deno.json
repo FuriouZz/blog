@@ -1,7 +1,9 @@
 {
   "lock": false,
   "imports": {
-    "lume/": "https://deno.land/x/lume@v2.0.1/"
+    "lume/": "https://deno.land/x/lume@v2.0.1/",
+    "shikiji/": "https://deno.land/x/lume_shikiji@0.0.5/",
+    "theme/": "./.lume/theme/"
   },
   "tasks": {
     "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A - --config .lume/config.ts",

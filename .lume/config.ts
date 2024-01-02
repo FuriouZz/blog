@@ -1,7 +1,8 @@
-import lume from "./deps/lume.ts";
-import blog from "./deps/theme.ts";
+import lume from "lume/mod.ts";
+import blog from "theme/mod.ts";
+import shikiji from "shikiji/mod.ts";
 
-import shikiji, {
+import {
   cssRulesDiff,
   cssRulesErrorLevel,
   cssRulesFocus,
@@ -10,14 +11,21 @@ import shikiji, {
   transformerNotationErrorLevel,
   transformerNotationFocus,
   transformerNotationHighlight,
-} from "./deps/shikiji.ts";
+} from "shikiji/transformers/mod.ts";
+
+import picture from "lume/plugins/picture.ts";
+import transformImages from "lume/plugins/transform_images.ts";
 
 import showLabel from "./plugins/showLabel.ts";
+import blockquoteStyles from "./plugins/blockquoteStyles.ts";
 
 const site = lume({ dest: `.lume/_site` });
 
 site
   .use(blog())
+  .use(blockquoteStyles())
+  .use(picture())
+  .use(transformImages({ cache: ".lume/_cache" }))
   .use(showLabel())
   .use(
     shikiji({
@@ -45,6 +53,5 @@ site
     }),
   );
 
-site.copy("content/assets", "assets");
 
 export default site;

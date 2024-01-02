@@ -1,6 +1,6 @@
+import { merge } from "lume/core/utils/object.ts";
 import { Page } from "lume/core/file.ts";
 import Site from "lume/core/site.ts";
-import { merge } from "../deps/lume.ts";
 
 export interface Options {
   /**
