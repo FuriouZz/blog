@@ -8,9 +8,9 @@ tags:
   - lume
 ---
 
-In my spare time, I love reading articles, writing codes and experimenting new concepts. Projects after projects, most of the time, everything falls in forgetting.
+In my spare time, I love reading articles, writing code and experimenting with new concepts. But one project after another, I realized that most of what I learned had been forgotten.
 
-For these reasons, I decided to create a blog. I see it as an opportunity to discipline myself into regular writings. I want to organize my thought, improve my writing skills and share my projects.
+For these reasons, I decided to create a blog as a way to remember and share my experiments. It is also an opportunity to organize my thoughts and to discipline myself to write on a regular basis.
 
 So, let's start this journey with this first article.
 
@@ -18,7 +18,9 @@ So, let's start this journey with this first article.
 
 ## What will we talk about?
 
-Blogging of course! More importantly we will talk about how to set up a blog and get it running locally.
+Blogging of course :memo:!
+
+More importantly we will talk about how to set up a blog and get it running locally.
 
 To get there, we are going to use:
   * [Deno](https://deno.land/) - a Javascript runtime easy to use and fast to set up
@@ -40,7 +42,7 @@ Now that we know where we are going, let's start!
 
 ## Create files and directories
 
-In this article, we will call our blog `my-awesome-blog`. Feel free to name it as you want.
+In this article, we will call our blog `my-awesome-blog` :sparkles:. Feel free to name it as you want.
 
 In our targeted file structure, we want to focus on creating content and getting less configurations and scripts as possible.
 
@@ -48,7 +50,7 @@ We will create two directories : `.lume/` and `content/`.
 
 Every code and configuration will be inside  `.lume` directory and all articles and pages inside `content` directory.
 
-Create files and directories by following the structure below:
+Create files and directories by following the structure below :point_down::
 
 ```bash
 my-awesome-blog/
@@ -129,7 +131,7 @@ site.use(blog()); // Use "theme-simple-blog"
 export default site;
 ```
 
-As explained before we can directly import Lume with `import lume from "lume/mod.ts"` and Simple Blog theme with `import blog from "blog/mod.ts"` instead of writing the entire url thanks to `imports` field.
+> As explained before we can directly import Lume with `import lume from "lume/mod.ts"` and Simple Blog theme with `import blog from "blog/mod.ts"` instead of writing the entire url thanks to `imports` field.
 
 Open your terminal in your `my-awesome-blog` directory, then run:
 ```bash

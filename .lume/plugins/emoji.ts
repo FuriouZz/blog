@@ -4,7 +4,7 @@ import { full } from "npm:markdown-it-emoji@3.0.0";
 
 export default function emoji() {
   return (site: Site) => {
-    site.hooks.addMarkdownItPlugin(full);
+    site.hooks.addMarkdownItPlugin(full, { defs: { "dino": "🦕" } });
     // deno-lint-ignore no-explicit-any
     site.hooks.addMarkdownItRule("emoji", (token: any[], idx: number) => {
       return `<span class="emoji emoji_${token[idx].markup}">${
