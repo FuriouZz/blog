@@ -10,18 +10,18 @@ tags:
 
 In my spare time, I love reading articles, writing codes and experimenting new concepts. Projects after projects, most of the time, everything falls in forgetting.
 
-For these reasons, I decided to create a blog. I see it as an opportunity to discipline myself into regular writings. I want to organise my thought, improve my writing skills and share my projects.
+For these reasons, I decided to create a blog. I see it as an opportunity to discipline myself into regular writings. I want to organize my thought, improve my writing skills and share my projects.
 
-That being said, let's start this journey with this first article.
+So, let's start this journey with this first article.
 
 <!-- more -->
 
 ## What will we talk about?
 
-Blogging of course! More importantly we will talk about how set up a blog and get it running locally.
+Blogging of course! More importantly we will talk about how to set up a blog and get it running locally.
 
 To get there, we are going to use:
-  * [Deno](https://deno.land/) - a Javascript Runtime easy to use and fast to setup
+  * [Deno](https://deno.land/) - a Javascript runtime easy to use and fast to set up
   * [Lume](https://lume.land) - a static site generator for Deno
   * [Simple Blog](https://github.com/lumeland/theme-simple-blog) - a theme for Lume configured for blogging
 
@@ -30,7 +30,7 @@ Creating a blog is a perfect side project to experiment new technologies.
 So in this post, we will:
   * Create project file structure
   * Configure Deno and Lume
-  * Start a server locally and see our blog
+  * Start a server locally and have a look at blog
   * Change blog title and welcome message
   * Create a page
   * Share data between multiple pages
@@ -42,9 +42,9 @@ Now that we know where we are going, let's start!
 
 In this article, we will call our blog `my-awesome-blog`. Feel free to name it as you want.
 
-In this file structure, we want to focus on content creation and getting less configurations and scripts as possible.
+In our targeted file structure, we want to focus on creating content and getting less configurations and scripts as possible.
 
-We will create two directories : `.lume` and `content`.
+We will create two directories : `.lume/` and `content/`.
 
 Every code and configuration will be inside  `.lume` directory and all articles and pages inside `content` directory.
 
@@ -63,7 +63,7 @@ my-awesome-blog/
 └── deno.json
 ```
 
-Details about files will be explained later in the article.
+Details about files will be given later in the article.
 
 ## Install Deno and configure Lume
 
@@ -73,7 +73,7 @@ Now, it is time to open your terminal and install [Deno](https://docs.deno.com/r
 >
 > [Deno](https://deno.land/) is a Javascript Runtime, similar to [Node.js](https://nodejs.org/en) and more recently [Bun](https://bun.sh/). It has many advantages like:
 > * Native support for Typescript and JSX
-> * Support **Web Platform API** (like `fetch()` and `localStorage`)
+> * Support Web Platform API (like `fetch()` and `localStorage`)
 > * Compatible with [Node.js](https://nodejs.org/en) and npm
 
 Once Deno is installed, we will edit `my-awesome-blog/deno.json` file:
@@ -94,8 +94,8 @@ Once Deno is installed, we will edit `my-awesome-blog/deno.json` file:
 
 Let me explain what is written above:
 
-* `tasks` field is used to register scripts.
 * `imports` field is used to configure [import maps](https://docs.deno.com/runtime/manual/basics/import_maps). This is an useful feature inherited from Web API's [importmap](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap) to control how Deno resolves module specifiers when importing Javascript modules.
+* `tasks` field is used to register scripts.
 
 For example, we can rewrite `lume` task this way:
 
@@ -133,7 +133,7 @@ As explained before we can directly import Lume with `import lume from "lume/mod
 
 OK! Open your terminal in your `my-awesome-blog` directory, then run:
 ```bash
-deno task serve
+$ deno task serve
 ```
 
 TADA! Your blog is running (locally) at [http://localhost:3000/](http://localhost:3000/).
@@ -152,7 +152,7 @@ Let's edit `my-awesome-blog/_data.yml`;
 lang: en
 
 home:
-  welcome: Hello, I am a person that writes stuff.
+  welcome: Hello, I am a person who writes stuff.
 
 extra_head:
 
@@ -170,9 +170,9 @@ If you refresh your browser, you have noticed that nothing changed.
 >
 > This file stores custom data shared by all pages in a directory. As explained in [Lume Documentation](https://lume.land/docs/creating-pages/shared-data/), this file can be a `.yml`, `.json`, `.js` or `.ts`. It can even be a directory `_data` containing files.
 
-**Simple Blog theme** use a specific [data structure](https://github.com/lumeland/theme-simple-blog/blob/main/demo/_data.yml) to customize the theme.
+**Simple Blog theme** uses a specific [data structure](https://github.com/lumeland/theme-simple-blog/blob/main/demo/_data.yml) to customize the theme.
 
-Let's edit this file again. But this time, we change `home.welcome`, `metas.title`, `metas.description` and override the default `title`:
+Let's edit this file again::
 
 ```yaml{label=my-awesome-blog/_data.yml}
 lang: en
@@ -209,19 +209,19 @@ title: About
 This is an example of an about me page.
 ```
 
-You may noticed that file is divided in two parts:
-  * The upper part is called **frontmatter**. This is where we set [Page data](https://lume.land/docs/creating-pages/page-data/). In our case, we want to override `title` value with `About`.
+This file is divided in two parts:
+  * The upper part is called **frontmatter**. This is where we set [Page data](https://lume.land/docs/creating-pages/page-data/)
   * The bottom part is the **content of our page** written in markdown
 
 > **Page Data**
 >
-> Similar to `_data.yml`, [Page data](https://lume.land/docs/creating-pages/page-data/) are custom data assigned to a page.
+> Similar to `_data.yml`, [Page data](https://lume.land/docs/creating-pages/page-data/) is custom data assigned to a page.
 >
-> Instead of writting page data in the **frontmatter**, you can write data in a separate file matching the page name with an extension `.yml`, `.json`, `.ts` or `.js`.
+> Instead of writting data in the **frontmatter**, you can write it in a separate file matching the page name with an extension `.yml`, `.json`, `.ts` or `.js`.
 >
 > eg.: with `about.md` you can create `about.yml`.
 
-OK! We are not ready to see our page. You may have noticed that we cannot access our page from the home page.
+Well, We are not ready to see our page yet. You may have noticed that we cannot access our page from the home page.
 
 Simple Blog has a menu which can be enabled by adding the `menu` object property.
 
@@ -232,13 +232,12 @@ Let's edit our file:
 title: About
 menu:           # [!code ++]
   visible: true # [!code ++]
-  order: 2      # [!code ++]
 ---
 
 This is an example of an about me page.
 ```
 
-We made the page visible in the menu and change its index position in the menu.
+We made the page visible in the menu.
 
 ![About page is visible in the top right menu](./assets/menu.png){transform-images="avif webp jpg 800@2"}
 
@@ -257,18 +256,17 @@ Simple Blog has [5 layouts](https://github.com/lumeland/theme-simple-blog/tree/e
   * `archive.vto` - the layout for the archive page
   * `archive_result.vto` - the layout for posts sorted by tags and authors
 
-For example if we visit the [Simple Blog theme](https://github.com/lumeland/theme-simple-blog/) repository, we may notice that our home page is represented by [src/index.vto](https://github.com/lumeland/theme-simple-blog/blob/e1a0146f392890d9af28f3cf43e4749030cc6556/src/index.vto#L2). This page use `base.vto` layout.
+For example if we visit the [Simple Blog theme](https://github.com/lumeland/theme-simple-blog/) repository, we may notice that our home page is represented by [src/index.vto](https://github.com/lumeland/theme-simple-blog/blob/e1a0146f392890d9af28f3cf43e4749030cc6556/src/index.vto#L2). This page uses `base.vto` layout.
 
-> In [Lume](https://lume.land/docs/creating-pages/page-files/), a page can use different format like `.md`, `.js`, `.ts`. You can even write your page in HTML or use a template engine like Vento for `.vto` file.
+> In [Lume](https://lume.land/docs/creating-pages/page-files/), a page can use different format like `.md`, `.js`, `.ts`. You can even write your page in HTML `.html` or use a template engine like Vento `.vto`.
 
-In our case, `my-awesome-blog/content/pages/about.md` does not have any layout. We need to precise which one to use. Again, let's edit our page:
+We did not specify a layout to our page. We need to set which one to use. Again, let's edit our page:
 
 ```markdown {label=my-awesome-blog/content/pages/about.md}
 ---
 title: "About"
 menu:
   visible: true
-  order: 2
 layout: "layouts/page.vto" # [!code ++]
 ---
 
@@ -281,16 +279,17 @@ TADA!
 
 ## Share data with multiple pages
 
-Precising the layout for every page will become a very repetitive task. But as we have seen before, we can use [Shared data](https://lume.land/docs/creating-pages/shared-data/) to set defaults properties for every page in a directory.
+Having to set the layout for every page will become a very repetitive task. Our solution is (as we have seen before), to use [Shared data](https://lume.land/docs/creating-pages/shared-data/) to set defaults properties for every page in a directory.
 
-We have already prepared that file at `my-awesome-blog/content/pages/_data.yml`. Let's make some changes:
+We have already prepared that file at `my-awesome-blog/content/pages/_data.yml`.
+
+Let's edit our files:
 
 ```markdown {label=my-awesome-blog/content/pages/about.md}
 ---
 title: "About"
 menu:
   visible: true
-  order: 2
 layout: "layouts/page.vto" # [!code --]
 ---
 ```
@@ -299,7 +298,7 @@ And edit `my-awesome-blog/content/pages/_data.yml`:
 layout: "layouts/page.vto" # [!code ++]
 ```
 
-I like beautiful URL. We can use the [basename](https://lume.land/docs/creating-pages/urls/#basename) property to remove `/content/` in our URL.
+Because I prefer beautiful URLs, I suggest that we use the [basename](https://lume.land/docs/creating-pages/urls/#basename) property to remove `/content/` from our URL.
 
 Instead of `/content/pages/about/` the URL will be formatted as `/pages/about/`.
 
@@ -308,7 +307,7 @@ layout: "layouts/page.vto"
 basename: "../pages" # [!code ++]
 ```
 
-Nice!
+We are getting there!
 
 <div style="justify-content: center; display: flex;">
 
@@ -341,19 +340,17 @@ basename: ../posts
 type: post
 ```
 
-You may have noticed that we have added a new property `type`. Simple Blog theme needs this property to differenciate `post` with `page`. Without it, no posts are displayed in your home page.
+You may have noticed that we added a new property `type`. Simple Blog theme needs this property to differentiate `post` from `page`. Without it, no posts will be displayed on your homepage.
 
-Once you have refreshed your homepage, you may notice a new menu item `Archives` and your blog post.
+Once you have refreshed your homepage, you will notice two things: your freshly created post and also the `Archives` item in the menu.
 
 ![Home page with a single post and new archive link in the menu](./assets/posts.png){transform-images="avif webp jpg 800@2"}
 
-Open your first post and notice the site title and page content:
+Now, look at the title and content of your first post:
 
 ![Our new post](./assets/single-post.png){transform-images="avif webp jpg 800@2"}
 
 ## What's next?
-
-Now it's time for blogging!
 
 In the next post, we will discuss how to deploy our blog with [Deno Deploy](https://deno.land/deploy).
 
