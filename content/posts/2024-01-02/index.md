@@ -6,8 +6,6 @@ tags:
   - javascript
   - deno
   - lume
-excerpt: |
-  In this post, you will learn how to create a blog with Deno and Lume.
 ---
 
 In my spare time, I love reading articles, writing codes and experimenting new concepts. Projects after projects, most of the time, everything falls in forgetting.
@@ -15,6 +13,8 @@ In my spare time, I love reading articles, writing codes and experimenting new c
 For these reasons, I decided to create a blog. I see it as an opportunity to discipline myself into regular writings. I want to organise my thought, improve my writing skills and share my projects.
 
 That being said, let's start this journey with this first article.
+
+<!-- more -->
 
 ## What will we talk about?
 
