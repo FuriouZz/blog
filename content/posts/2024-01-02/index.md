@@ -256,7 +256,7 @@ If we visit the [Simple Blog theme](https://github.com/lumeland/theme-simple-blo
 
 > In [Lume](https://lume.land/docs/creating-pages/page-files/), a page can use different format like `.md`, `.js`, `.ts`. You can even write your page in HTML or use a template engine like Vento for `.vto` file.
 
-In our case, `awesome-blog/content/pages/about.md` does not have any layout. We need to precise which one to use. Again, let's edit our page:
+In our case, `my-awesome-blog/content/pages/about.md` does not have any layout. We need to precise which one to use. Again, let's edit our page:
 
 ```markdown {label=my-awesome-blog/content/pages/about.md}
 ---
@@ -294,11 +294,9 @@ And edit `my-awesome-blog/content/pages/_data.yml`:
 layout: "layouts/page.vto" # [!code ++]
 ```
 
-I like beautiful URL. We can use the [basename](https://lume.land/docs/creating-pages/urls/#basename) property to remove `/content/` in our URL.
+I like beautiful URL. We can use the [basename](https://lume.land/docs/creating-pages/urls/#basename) property to remove `/content/` in our URL. Instead of `/content/pages/about/` the URL will be formatted as `/pages/about/`.
 
-Instead of `/content/pages/about/` the URL will be formatted as `/pages/about/`.
-
-```yaml{label=awesome-blog/content/pages/_data.yml}
+```yaml{label=my-awesome-blog/content/pages/_data.yml}
 layout: "layouts/page.vto"
 basename: "../pages" # [!code ++]
 ```
