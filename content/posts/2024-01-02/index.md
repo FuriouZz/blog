@@ -48,7 +48,7 @@ We will create two directories : `.lume/` and `content/`.
 
 Every code and configuration will be inside  `.lume` directory and all articles and pages inside `content` directory.
 
-OK! Create files and directories by following the structure below:
+Create files and directories by following the structure below:
 
 ```bash
 my-awesome-blog/
@@ -131,12 +131,12 @@ export default site;
 
 As explained before we can directly import Lume with `import lume from "lume/mod.ts"` and Simple Blog theme with `import blog from "blog/mod.ts"` instead of writing the entire url thanks to `imports` field.
 
-OK! Open your terminal in your `my-awesome-blog` directory, then run:
+Open your terminal in your `my-awesome-blog` directory, then run:
 ```bash
 $ deno task serve
 ```
 
-TADA! Your blog is running (locally) at [http://localhost:3000/](http://localhost:3000/).
+TADA :tada:! Your blog is running (locally) at [http://localhost:3000/](http://localhost:3000/).
 
 ![Blog running locally](assets/offline.png){transform-images="avif webp jpg 800@2"}
 
@@ -241,7 +241,7 @@ We made the page visible in the menu.
 
 ![About page is visible in the top right menu](./assets/menu.png){transform-images="avif webp jpg 800@2"}
 
-OK! Now, let's visit our page.
+Now, let's visit our page.
 
 ![Page is displayed without CSS](./assets/page-no-css.png){transform-images="avif webp jpg 800@2"}
 
@@ -273,7 +273,7 @@ layout: "layouts/page.vto" # [!code ++]
 This is an example of an about me page.
 ```
 
-TADA!
+TADA :tada:!
 
 ![Page is displayed with our theme](./assets/page-with-css.png){transform-images="avif webp jpg 800@2"}
 
