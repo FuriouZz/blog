@@ -1,6 +1,9 @@
 ---
 title: How to create a blog with Deno and Lume
 url: ./how-to-create-a-blog-with-deno-and-lume/
+metas:
+  description: |
+    In this blog post, you will learn to create a blog with Deno and Lume.
 author: furiouzz
 tags:
   - javascript
