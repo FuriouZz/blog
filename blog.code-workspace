@@ -5,7 +5,14 @@
 		},
 		{
 			"path": "./content",
+		},
+		{
+			"path": "./.lume/theme"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"cSpell.files": [
+			"./content/**/*.md"
+		]
+	}
 }
