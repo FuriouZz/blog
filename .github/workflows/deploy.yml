@@ -27,18 +27,6 @@ jobs:
         with:
           deno-version: v1.x
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: lts/*
-
-      - name: Create cache key
-        run: |
-          touch .cache_key
-          echo "$(git rev-parse --short HEAD)" >> .cache_key
-          cat .cache_key
-          ls -a .
-
       - name: Build step
         run: deno task build
 
