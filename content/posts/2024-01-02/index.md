@@ -363,5 +363,3 @@ For more information, I invite you to:
 * Read [Lume documentation](https://lume.land/docs/overview/about-lume/)
 * Fork [theme-simple-blog](https://github.com/lumeland/theme-simple-blog/tree/main)
 * Experiment with [Deno](https://deno.com/)
-
-Please, do not hesitate to leave a comment or send me a private message [@furiouzz](https://twitter.com/furiouzz).
