@@ -10,6 +10,15 @@ metas:
   twitter: "@furiouzz"
   lang: "=lang"
 
+extra_head: |
+  <link rel="stylesheet" href="/styles/shikiji.css">
+  <link rel="stylesheet" href="/styles/shikiji-extra/main.css">
+  <link rel="stylesheet" href="/styles/shikiji-extra/transformerNotationHighlight.css">
+  <link rel="stylesheet" href="/styles/shikiji-extra/transformerNotationErrorLevel.css">
+  <link rel="stylesheet" href="/styles/shikiji-extra/transformerNotationDiff.css">
+  <link rel="stylesheet" href="/styles/shikiji-extra/transformerNotationFocus.css">
+
+
 comments_provider: giscus
 giscus:
   repo: furiouzz/blog-comments
