@@ -1,10 +1,11 @@
 import Site from "lume/core/site.ts";
 
 import { full } from "npm:markdown-it-emoji@3.0.0";
+import emojies_defs from "npm:markdown-it-emoji@3.0.0/lib/data/full.mjs";
 
 export default function emoji() {
   return (site: Site) => {
-    site.hooks.addMarkdownItPlugin(full, { defs: { "dino": "🦕" } });
+    site.hooks.addMarkdownItPlugin(full, { defs: { ...emojies_defs, "dino": "🦕" } });
     // deno-lint-ignore no-explicit-any
     site.hooks.addMarkdownItRule("emoji", (token: any[], idx: number) => {
       return `<span class="emoji emoji_${token[idx].markup}">${

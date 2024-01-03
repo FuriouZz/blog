@@ -8,14 +8,12 @@ import transformImages from "lume/plugins/transform_images.ts";
 
 import emoji from "./plugins/emoji.ts";
 import showLabel from "./plugins/showLabel.ts";
-import blockquoteStyles from "./plugins/blockquoteStyles.ts";
 
 const site = lume({ dest: `.lume/_site` });
 
 site
   .use(blog())
   .use(emoji())
-  .use(blockquoteStyles())
   .use(picture())
   .use(transformImages({ cache: ".lume/_cache" }))
   .use(showLabel())
