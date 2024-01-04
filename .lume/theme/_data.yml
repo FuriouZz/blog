@@ -5,6 +5,8 @@ home:
 
 menu_links: []
 
+logo: <img src="/assets/logo.svg" />
+
 # Metas plugin https://lume.land/plugins/metas/#description
 metas:
   site: chrsmsln
@@ -13,15 +15,6 @@ metas:
   image: "=image"
   twitter: "@furiouzz"
   lang: "=lang"
-
-extra_head: |
-  <link rel="stylesheet" href="/styles/shikiji.css">
-  <link rel="stylesheet" href="/styles/shikiji-extra/main.css">
-  <link rel="stylesheet" href="/styles/shikiji-extra/transformerNotationHighlight.css">
-  <link rel="stylesheet" href="/styles/shikiji-extra/transformerNotationErrorLevel.css">
-  <link rel="stylesheet" href="/styles/shikiji-extra/transformerNotationDiff.css">
-  <link rel="stylesheet" href="/styles/shikiji-extra/transformerNotationFocus.css">
-
 
 comments_provider: giscus
 giscus:

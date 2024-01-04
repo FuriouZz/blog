@@ -1,15 +1,9 @@
 {
 	"folders": [
 		{
-			"name": "@root",
 			"path": "."
 		},
 		{
-			"name": "@config",
-			"path": "./.lume"
-		},
-		{
-			"name": "blog",
 			"path": "./content",
 		}
 	],

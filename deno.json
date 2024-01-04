@@ -3,7 +3,12 @@
   "imports": {
     "lume/": "https://deno.land/x/lume@v2.0.2/",
     "shikiji/": "https://deno.land/x/lume_shikiji@0.0.7/",
-    "theme/": "./.lume/theme/"
+    "theme/": "https://deno.land/x/lume_theme_simple_blog@v0.13.3/"
+  },
+  "scopes": {
+    "https://deno.land/x/lume_theme_simple_blog@v0.13.3/": {
+      "https://deno.land/x/lume_theme_simple_blog@v0.13.3/plugins.ts": "./.lume/plugins.ts"
+    }
   },
   "tasks": {
     "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A - --config .lume/config.ts",

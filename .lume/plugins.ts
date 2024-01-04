@@ -1,6 +1,7 @@
 import date, { Options as DateOptions } from "lume/plugins/date.ts";
 import postcss from "lume/plugins/postcss.ts";
 import terser from "lume/plugins/terser.ts";
+// import prism, { Options as PrismOptions } from "lume/plugins/prism.ts";
 import basePath from "lume/plugins/base_path.ts";
 import slugifyUrls from "lume/plugins/slugify_urls.ts";
 import resolveUrls from "lume/plugins/resolve_urls.ts";
@@ -9,27 +10,16 @@ import pagefind, { Options as PagefindOptions } from "lume/plugins/pagefind.ts";
 import sitemap from "lume/plugins/sitemap.ts";
 import feed from "lume/plugins/feed.ts";
 import readingInfo from "lume/plugins/reading_info.ts";
-import picture from "lume/plugins/picture.ts";
-import transformImages, {
-  Options as TransformImagesOptions,
-} from "lume/plugins/transform_images.ts";
 import toc from "https://deno.land/x/lume_markdown_plugins@v0.7.0/toc.ts";
 import image from "https://deno.land/x/lume_markdown_plugins@v0.7.0/image.ts";
 import footnotes from "https://deno.land/x/lume_markdown_plugins@v0.7.0/footnotes.ts";
-import shikiji, {
-  Options as ShikijiOptions,
-} from "https://deno.land/x/lume_shikiji@0.0.7/mod.ts";
-import shikijiExtra from "https://deno.land/x/lume_shikiji@0.0.7/extra/mod.ts";
 
 import "lume/types.ts";
-import emoji from "theme/plugins/emoji.ts";
-import showLabel from "theme/plugins/showLabel.ts";
 
 export interface Options {
+  // prism?: Partial<PrismOptions>;
   date?: Partial<DateOptions>;
   pagefind?: Partial<PagefindOptions>;
-  transformImages?: Partial<TransformImagesOptions>;
-  shikiji?: ShikijiOptions;
 }
 
 /** Configure the site */
@@ -38,6 +28,7 @@ export default function (options: Options = {}) {
     site.use(postcss())
       .use(basePath())
       .use(toc())
+      // .use(prism(options.prism))
       .use(readingInfo())
       .use(date(options.date))
       .use(metas())
@@ -48,20 +39,6 @@ export default function (options: Options = {}) {
       .use(terser())
       .use(pagefind(options.pagefind))
       .use(sitemap())
-      .use(emoji())
-      .use(showLabel())
-      .use(picture())
-      .use(transformImages(options.transformImages))
-      .use(shikiji({
-        theme: "github-light",
-        ...options.shikiji,
-        highlighter: {
-          themes: ["github-light"],
-          langs: ["javascript"],
-          ...options.shikiji?.highlighter
-        },
-      }))
-      .use(shikijiExtra({ copyFiles: true }))
       .use(feed({
         output: ["/feed.xml", "/feed.json"],
         query: "type=post",
@@ -75,7 +52,7 @@ export default function (options: Options = {}) {
       }))
       .copy("fonts")
       .copy("js")
-      .copy("favicon.png")
+      // .copy("favicon.png")
       .preprocess([".md"], (pages) => {
         for (const page of pages) {
           page.data.excerpt ??= (page.data.content as string).split(
