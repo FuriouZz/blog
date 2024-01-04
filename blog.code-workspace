@@ -1,13 +1,16 @@
 {
 	"folders": [
 		{
+			"name": "@root",
 			"path": "."
 		},
 		{
-			"path": "./content",
+			"name": "@config",
+			"path": "./.lume"
 		},
 		{
-			"path": "./.lume/theme"
+			"name": "blog",
+			"path": "./content",
 		}
 	],
 	"settings": {

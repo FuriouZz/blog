@@ -3,10 +3,14 @@ lang: en
 home:
   welcome: Let's talk about code <br>and computer graphics !
 
+menu_links: []
+
 # Metas plugin https://lume.land/plugins/metas/#description
 metas:
   site: chrsmsln
   description: Let's talk about code and computer graphics !
+  title: "=title"
+  image: "=image"
   twitter: "@furiouzz"
   lang: "=lang"
 
