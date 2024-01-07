@@ -3,7 +3,9 @@ lang: en
 home:
   welcome: Let's talk about code <br>and computer graphics !
 
-menu_links: []
+menu_links:
+  - href: https://chrsmsln.com
+    text: About
 
 logo: <img src="/assets/logo.svg" />
 

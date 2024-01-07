@@ -54,7 +54,7 @@
       <ul class="navbar-links">
       {{- for entry of search.pages("menu.visible=true", "menu.order") }}
         <li>
-          <a href="{{ entry.menu.url ?? entry.url }}"{{ if entry.url == url }} aria-current="page"{{ /if }}>
+          <a href="{{ entry.url }}"{{ if entry.url == url }} aria-current="page"{{ /if }}>
             {{ entry.menu.title || entry.title }}
           </a>
         </li>
