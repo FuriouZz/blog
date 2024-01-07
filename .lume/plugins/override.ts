@@ -1,4 +1,3 @@
-import { isAbsolutePath } from "lume/core/utils/path.ts";
 import Site from "lume/core/site.ts";
 import { merge } from "lume/core/utils/object.ts";
 import { join, relative } from "lume/deps/path.ts";
@@ -23,18 +22,15 @@ export const defaults: Required<Options> = {
 };
 
 export default function override(userOptions?: Options) {
-  const { rootPath: _rootPath, entries } = merge(defaults, userOptions);
+  const { rootPath, entries } = merge(defaults, userOptions);
+  const files = new Map<string, string>();
 
-  let rootPath = _rootPath;
-  if (!isAbsolutePath(_rootPath)) {
-    rootPath = join(Deno.cwd(), rootPath);
-  }
+  let absRootPath: string;
 
   const append = (site: Site, path: string) => {
-    site.remoteFile(
-      relative(rootPath, path),
-      import.meta.resolve(path),
-    );
+    const file = relative(absRootPath, path);
+    site.remoteFile(file, import.meta.resolve(path));
+    files.set(`/${join(rootPath, file)}`, `/${file}`);
   };
 
   const walkDir = (site: Site, dir: string) => {
@@ -51,7 +47,9 @@ export default function override(userOptions?: Options) {
   };
 
   return (site: Site) => {
-    for (const entry of entries.map((entry) => join(rootPath, entry))) {
+    absRootPath = join(site.src(), rootPath);
+
+    for (const entry of entries.map((entry) => join(absRootPath, entry))) {
       try {
         const info = Deno.statSync(entry);
 
@@ -67,5 +65,14 @@ export default function override(userOptions?: Options) {
         console.warn("Entry does not exist: ", entry);
       }
     }
+
+    site.addEventListener("afterUpdate", (e) => {
+      const entries = [...e.files]
+        .filter((file) => files.has(file))
+        .map((file) => files.get(file)!);
+      if (entries.length > 0) {
+        site.update(new Set(entries));
+      }
+    });
   };
 }
