@@ -63,7 +63,7 @@ export default function override(userOptions?: Options) {
         if (info.isDirectory) {
           walkDir(site, entry);
         }
-      } catch (e) {
+      } catch (_) {
         console.warn("Entry does not exist: ", entry);
       }
     }
