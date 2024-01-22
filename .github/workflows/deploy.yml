@@ -35,7 +35,8 @@ jobs:
           path: .lume/_site
 
   deploy:
-    name: Build
+    name: Deploy
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
