@@ -31,8 +31,8 @@ jobs:
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
-          name: .lume/_site
-          path: .lume/_site
+          name: _site
+          path: .lume/_site/
 
   deploy:
     name: Deploy
@@ -51,8 +51,8 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: .lume/_site
-          path: .lume/_site
+          name: _site
+          path: .lume/_site/
 
       - name: Upload to Deno Deploy
         env:
