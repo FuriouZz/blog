@@ -3,16 +3,28 @@
   "imports": {
     "lume/": "https://deno.land/x/lume@v2.0.2/",
     "shikiji/": "https://deno.land/x/lume_shikiji@0.0.7/",
-    "theme/": "https://deno.land/x/lume_theme_simple_blog@v0.13.3/"
+    "theme/": "https://deno.land/x/furiouzz@0.0.12/lume-blog-theme/"
   },
   "scopes": {
-    "https://deno.land/x/lume_theme_simple_blog@v0.13.3/": {
-      "https://deno.land/x/lume_theme_simple_blog@v0.13.3/plugins.ts": "./.lume/plugins.ts"
+    "https://deno.land/x/lume@v2.0.2/": {
+      "https://deno.land/x/lume@v2.0.2/plugins/markdown.ts": "./.lume/overrides/markdown.ts"
     }
   },
   "tasks": {
     "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A - --config .lume/config.ts",
     "build": "deno task lume",
-    "serve": "deno task lume -s"
+    "serve": "deno task lume -s",
+    "deploy": "deno run -A https://deno.land/x/deploy@1.10.0/deployctl.ts deploy"
+  },
+  "deploy": {
+    "project": "furiouzz-helloworld2",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [
+      ".lume/serve.ts",
+      ".lume/_site/**/*"
+    ],
+    "entrypoint": ".lume/serve.ts"
   }
 }
