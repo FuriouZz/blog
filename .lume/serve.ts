@@ -1,4 +1,4 @@
-import Server from "lume/core/server.ts";
+import Server from "https://deno.land/x/lume@v2.0.2/core/server.ts";
 
 const port = 8000
 
