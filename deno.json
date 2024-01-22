@@ -17,7 +17,7 @@
     "deploy": "deno run -A https://deno.land/x/deploy@1.10.0/deployctl.ts deploy"
   },
   "deploy": {
-    "project": "furiouzz-helloworld2",
+    "project": "chrsmsln-blog",
     "exclude": [
       "**/node_modules"
     ],
