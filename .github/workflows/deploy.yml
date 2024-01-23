@@ -51,6 +51,8 @@ jobs:
           path: .lume/_site/
 
       - name: Upload to Deno Deploy
-        env:
-          DENO_DEPLOY_TOKEN: ${{ secrets.DENO_DEPLOY_TOKEN }}
-        run: deno task deploy ${{ endsWith(github.ref, '/main') && '--prod' || '' }}
+        uses: denoland/deployctl@v1
+        with:
+          project: chrsmsln-blog
+          import-map: "./deno.json"
+          entrypoint: .lume/serve.ts
