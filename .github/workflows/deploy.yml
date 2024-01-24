@@ -56,14 +56,16 @@ jobs:
           DENO_DEPLOY_TOKEN: ${{ secrets.DENO_DEPLOY_TOKEN }}
         run: |
           OUTPUT=$(deno task deploy ${{ endsWith(github.ref, '/main') && '--prod' || '' }})
-          echo "stdout=$OUTPUT" >> $GITHUB_OUTPUT
+          echo "DENO_DEPLOY_URLS=$OUTPUT" >> $GITHUB_OUTPUT
 
       - name: Add comment to pull request
         uses: actions/github-script@v7
         if: ${{ github.event_name == 'pull_request' }}
+        env:
+          DENO_DEPLOY_URLS: ${{ steps.deploy.outputs.DENO_DEPLOY_URLS }}
         with:
           script: |
-            const output = `${{ steps.deploy.outputs.stdout }}`;
+            const output = `$DENO_DEPLOY_URLS`;
             const body = output.slice(output.lastIndexOf("View at:")).trim();
             github.rest.issues.createComment({
               owner: context.issue.owner,
