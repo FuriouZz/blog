@@ -16,10 +16,25 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v3
 
+      - name: Cache transform_images _cache directory
+        id: transform_images_cache
+        uses: actions/cache@v4
+        with:
+          path: _cache
+          key: transform_images_cache
+
       - name: Install Deno
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
+
+      - name: Cache deno
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.deno
+            ~/.cache/deno
+          key: deno_cache
 
       - name: Build
         run: deno task build
@@ -43,6 +58,14 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
+
+      - name: Cache deno
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.deno
+            ~/.cache/deno
+          key: deno_cache
 
       - name: Download Artifact
         uses: actions/download-artifact@master
