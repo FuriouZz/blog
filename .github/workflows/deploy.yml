@@ -61,12 +61,13 @@ jobs:
       - name: Add comment to pull request
         uses: actions/github-script@7
         if: ${{ github.event_name == 'pull_request' }}
-        script: |
-          const output = `${{ steps.deploy.outputs.stdout }}`;
-          const body = output.slice(output.lastIndexOf("View at:")).trim();
-          github.issues.createComment({
-            owner: context.issue.owner,
-            repo: context.issue.repo,
-            issue_number: context.issue.number,
-            body,
-          });
+        with:
+          script: |
+            const output = `${{ steps.deploy.outputs.stdout }}`;
+            const body = output.slice(output.lastIndexOf("View at:")).trim();
+            github.issues.createComment({
+              owner: context.issue.owner,
+              repo: context.issue.repo,
+              issue_number: context.issue.number,
+              body,
+            });
