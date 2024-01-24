@@ -16,25 +16,25 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v3
 
-      - name: Cache transform_images _cache directory
-        id: transform_images_cache
-        uses: actions/cache@v4
-        with:
-          path: _cache
-          key: transform_images_cache
-
       - name: Install Deno
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
 
-      - name: Cache deno
+      - name: Cache transform_images data
+        id: transform_images_cache
+        uses: actions/cache@v4
+        with:
+          path: _cache
+          key: transform_images_cache-${{ hashFiles('**.png') }}
+
+      - name: Cache deno dependencies
         uses: actions/cache@v4
         with:
           path: |
             ~/.deno
             ~/.cache/deno
-          key: deno_cache
+          key: deno_cache-${{ hashFiles('(**.ts|deno.json)') }}
 
       - name: Build
         run: deno task build
