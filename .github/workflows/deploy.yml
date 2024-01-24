@@ -26,7 +26,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: _cache
-          key: transform_images_cache-${{ hashFiles('**.png') }}
+          key: transform_images_cache-${{ hashFiles('**/*.png') }}
 
       - name: Cache deno dependencies
         uses: actions/cache@v4
@@ -34,7 +34,7 @@ jobs:
           path: |
             ~/.deno
             ~/.cache/deno
-          key: deno_cache-${{ hashFiles('(**.ts|deno.json)') }}
+          key: deno_cache-${{ hashFiles('(**/*.ts|**/deno.json)') }}
 
       - name: Build
         run: deno task build
