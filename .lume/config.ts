@@ -1,7 +1,7 @@
 import lume from "lume/mod.ts";
 import theme from "theme/mod.ts";
-import blockquote from "./plugins/md-blockquote.ts";
-import dateFromDirectory from "./plugins/dateFromDirectory.ts";
+import markdownItBlockquote from "./plugins/markdownItBlockquote.ts";
+import titleFromFilename from "./plugins/titleFromFilename.ts";
 
 const site = lume({ dest: `.lume/_site` })
   .use(theme({
@@ -18,8 +18,8 @@ const site = lume({ dest: `.lume/_site` })
       useColorScheme: true,
     },
   }))
-  .use(blockquote())
-  .use(dateFromDirectory())
+  .use(markdownItBlockquote())
+  .use(titleFromFilename())
   .copy("favicons", ".")
   .copy("assets")
   .remoteFile("favicon.png", import.meta.resolve("./theme/favicons/favicon.png"));

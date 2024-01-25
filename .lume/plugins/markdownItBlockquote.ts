@@ -5,10 +5,10 @@ const colors: Record<string, string> = {
   warning: "yellow",
 };
 
-export default function blockQuote() {
+export default function markdownItBlockquote() {
   return (site: Site) => {
     site.hooks.addMarkdownItPlugin(container, "quote", {
-      render: function (tokens: any[], idx: number) {
+      render: function (tokens: { nesting: number, info: string }[], idx: number) {
         const m = tokens[idx].info.trim().match(/^quote\s+(.*)$/);
 
         if (tokens[idx].nesting === 1) {
