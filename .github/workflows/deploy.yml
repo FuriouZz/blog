@@ -92,13 +92,7 @@ jobs:
         with:
           script: |
             const output = `
-              <details><summary>Output</summary>
-
-                \`\`\`bash
-                ${{ steps.deploy.outputs.stdout }}
-                \`\`\`
-
-              </details>
+              ${{ steps.deploy.outputs.stdout }}
 
               *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*
             `;
