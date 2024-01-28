@@ -91,7 +91,7 @@ Once Deno is installed, we will edit `my-awesome-blog/deno.json` file:
   "tasks": {
     "lume": "echo \"import 'https://deno.land/x/lume@v2.0.1/cli.ts'\" | deno run --unstable -A - --config .lume/config.ts",
     "build": "deno task lume",
-    "serve": "deno task lume -s"
+    "dev": "deno task lume -s"
   }
 }
 ```
@@ -113,7 +113,7 @@ For example, we can rewrite `lume` task this way:
     "lume": "echo \"import 'https://deno.land/x/lume@v2.0.1/cli.ts'\" | deno run --unstable -A - --config .lume/config.ts", // [!code --]
     "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A - --config .lume/config.ts", // [!code ++]
     "build": "deno task lume",
-    "serve": "deno task lume -s"
+    "dev": "deno task lume -s"
   }
 }
 ```
@@ -136,8 +136,9 @@ export default site;
 > As explained before we can directly import Lume with `import lume from "lume/mod.ts"` and Simple Blog theme with `import blog from "blog/mod.ts"` instead of writing the entire url thanks to `imports` field.
 
 Open your terminal in your `my-awesome-blog` directory, then run:
+
 ```bash
-$ deno task serve
+$ deno task dev
 ```
 
 TADA :tada:! Your blog is running (locally) at [http://localhost:3000/](http://localhost:3000/).

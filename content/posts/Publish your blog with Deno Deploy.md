@@ -10,11 +10,11 @@ tags:
   - lume
 ---
 
-Last month we talked about [how to create a blog with Deno and Lume](/posts/how-to-create-a-blog-with-deno-and-lume). Now we will make it accessible publicly with [Deno Deploy](https://deno.com/deploy).
+Last month we talked about [how to create a blog with Deno and Lume](/posts/how-to-create-a-blog-with-deno-and-lume). In this post, we will make it accessible publicly with [Deno Deploy](https://deno.com/deploy).
 
 <!-- more -->
 
-To follow this post, you need a file structure similar to the one created in my [previous post](/posts/how-to-create-a-blog-with-deno-and-lume#create-files-and-directories). Let me remind you how it looks like:
+To follow this post, you need a file structure similar to the one created in my [previous post](/posts/how-to-create-a-blog-with-deno-and-lume#create-files-and-directories) with few pages and posts. Let me remind you how it looks like:
 
 ```bash
 my-awesome-blog/
@@ -33,21 +33,21 @@ my-awesome-blog/
 
 We used [Lume](https://lume.land), a static site generator, to generate our blog. The `deno task build` command generate `.lume/_site/` directory. Our objective is to execute a web server which will serve this directory.
 
-Lume has an interesting [Deployment section](https://lume.land/docs/advanced/deployment/) for deployment on most popular services, including [Deno Deploy](https://deno.com/deploy). However in this post, we will not use [denoland/deployctl](https://github.com/denoland/deployctl/tree/main/action) but the command-line of the same name [deployctl](https://github.com/denoland/deployctl). I want this tutorial to be adaptable to any remote repository and any CI/CD.
+Lume has an interesting [Deployment section](https://lume.land/docs/advanced/deployment/) for deployment on most popular services, including [Deno Deploy](https://deno.com/deploy). However in this post, we will not use [denoland/deployctl](https://github.com/denoland/deployctl/tree/main/action) but the command-line of the same name [deployctl](https://github.com/denoland/deployctl) for more flexibility and to not fully depend on the Github environment.
 
 ::: quote warning
-At the time we are writing, you need a Github account to use Deno Deploy. On the other hand, you can host your source code wherever you want.
+At the time we are writing, you need a Github account to use Deno Deploy.
 :::
 
 Here our plan:
 1. Update our file architecture
-2. Launch our first deployment locally
+2. Launch our first deployment from our terminal
 3. Automate deployment with a Github workflow
 
 ## File architecture
 
 In our targeted file architecture, we will create two new files:
-* `.lume/entry-point.ts` is the script executed by Deno Deploy
+* `.lume/entrypoint.ts` is the script executed by Deno Deploy
 * `.github/workflows/deploy.yml` is our Github workflow for site generation and deployment
 
 ```bash
@@ -56,7 +56,7 @@ my-awesome-blog/
 │   └── workflows/
 │   │   └── deploy.yml # [!code ++]
 ├── .lume/
-│   ├── entry-point.ts # [!code ++]
+│   ├── entrypoint.ts # [!code ++]
 │   └── config.ts
 ├── content/
 │   ├── posts/
@@ -69,14 +69,12 @@ my-awesome-blog/
 └── deno.json
 ```
 
-::: quote warning
-Do not forget to add `.lume/_site/` directory to your `.gitignore` file.
-:::
-
 ## First deployment
 
 ::: quote
-What is [Deno Deploy](https://deno.com/deploy) ? This is a service for hosting Javascript application. Your application is hosted on server geographically close to your users, which enable low latency and fast response times.
+**What is Deno Deploy?**
+
+[Deno Deploy](https://deno.com/deploy) is a service for hosting Javascript application. Your application is hosted on server geographically close to your users, which enable low latency and fast response times.
 :::
 
 Take the following steps to configure [deployctl](https://github.com/denoland/deployctl):
@@ -85,11 +83,11 @@ Take the following steps to configure [deployctl](https://github.com/denoland/de
 * Add deployment configuration in `deno.json`
 * Generate an access token on Deno Dashboard
 
-Let's start with our entry point. The entry point will start a web server which will serve `.lume/_site/` directory. We will later use this server to generate page [on demand](https://lume.land/plugins/on_demand/).
+Let's start with our entry point. The entrypoint will start a web server which will serve `.lume/_site/` directory.
 
-Edit `.lume/entry-point.ts`:
+Edit `.lume/entrypoint.ts`:
 
-```ts {label=my-awesome-blog/.lume/entry-point.ts}
+```ts {label=my-awesome-blog/.lume/entrypoint.ts}
 import Server from "https://deno.land/x/lume@v2.0.2/core/server.ts";
 
 const port = 8000;
@@ -104,7 +102,14 @@ server.start();
 console.log(`Listening on http://localhost:${port}`);
 ```
 
-Now we will create our `deploy` task:
+If you run these commands below, it will build your blog and serve its content at http://localhost:8000/:
+
+```bash
+$ deno task build
+$ deno run -A .lume/entrypoint.ts
+```
+
+You can create a `preview` task to test your entrypoint before deployment
 
 ```json {label=my-awesome-blog/deno.json}
 {
@@ -113,10 +118,10 @@ Now we will create our `deploy` task:
     "blog/": "https://deno.land/x/lume_theme_simple_blog@v0.10.2/"
   },
   "tasks": {
-    "deploy": "deno run --env -A https://deno.land/x/deploy/deployctl.ts deploy", // [!code ++]
     "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A - --config .lume/config.ts",
     "build": "deno task lume",
-    "serve": "deno task lume -s"
+    "preview": "deno run -A .lume/entrypoint.ts", // [!code ++]
+    "dev": "deno task lume -s"
   }
 }
 ```
@@ -127,6 +132,8 @@ Now we will add a new `deploy` field which will contains following configuration
 * `include` lists files and directories to be deployed.
 * `exclude` list files and directories to not be deployed.
 
+Also we will add a `deploy` task:
+
 ```json {label=my-awesome-blog/deno.json}
 {
   "imports": {
@@ -135,9 +142,9 @@ Now we will add a new `deploy` field which will contains following configuration
   },
   "deploy": { // [!code ++]
     "project": "YOUR_PROJECT_NAME", // [!code ++]
-    "entrypoint": ".lume/entry-point.ts", // [!code ++]
+    "entrypoint": ".lume/entrypoint.ts", // [!code ++]
     "include": [ // [!code ++]
-      "./.lume/entry-point.ts", // [!code ++]
+      "./.lume/entrypoint.ts", // [!code ++]
       "./.lume/_site" // [!code ++]
     ], // [!code ++]
 	"exclude": [ // [!code ++]
@@ -145,14 +152,18 @@ Now we will add a new `deploy` field which will contains following configuration
     ] // [!code ++]
   }, // [!code ++]
   "tasks": {
-    "deploy": "deno run --env -A https://deno.land/x/deploy/deployctl.ts deploy",
+    "deploy": "deno run --env -A https://deno.land/x/deploy/deployctl.ts deploy", // [!code ++]
     "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A - --config .lume/config.ts",
     "build": "deno task lume",
-    "serve": "deno task lume -s"
+    "preview": "deno run -A .lume/entrypoint.ts",
+    "dev": "deno task lume -s"
   }
 }
 ```
 
+::: quote warning
+Pay attention to the `YOUR_PROJECT_NAME` value. We must replace with your own project name or remove this line.
+:::
 
 Here our last step. Go to [account settings](https://dash.deno.com/account#access-tokens), then look for **Access tokens** section. Click on **New Access Token** button.
 
@@ -164,7 +175,7 @@ Once generated, open a terminal and write the command below with your access tok
 $ export DENO_DEPLOY_TOKEN=YOUR_ACCESS_TOKEN_HERE
 ```
 
-Now we are ready to execute our first deployment:
+Now we are ready to execute your first deployment:
 
 ```bash
 $ deno task deploy
@@ -187,19 +198,25 @@ For the creation of a project, `deployctl` has two actions:
 * Create a new deployment accessible at `https://YOUR_PROJECT_NAME-DEPLOYMENT_ID.deno.dev/`
 * If this is the first deployment, the created deployment is promoted to **production** and is accessible at `https://YOUR_PROJECT_NAME.deno.dev/`
 
-If you edit one of your page and execute `deno task deploy` a second time, you may notice that  URL is created with a different `DEPLOYMENT_ID`. Your page does not have if you visit `https://YOUR_PROJECT_NAME.deno.dev/`. Your new deployment has not been promoted to **production**. To solve this issue, you can run `deno task deploy --prod` to promote the deployment to **production**.
+If you edit one of your page and execute `deno task deploy` a second time, you may notice a new URL a different `DEPLOYMENT_ID`. We may see changes in this new URL but not at `https://YOUR_PROJECT_NAME.deno.dev/`. By default, new deployment are not promoted to **production**.
+
+To promote to **production**, you execute `deploy` task with `--prod` flag.
+
+```bash
+$ deno task deploy --prod
+```
 
 ## Automate deployment
 
-To automate our deployment, we will create a CI/CD pipeline. CI/CD stands for Continuous Integration and Continuous Delivery/Deployment. You are free to use any CI/CD pipeline. In this post, we will create a Github workflow.
+To automate our deployment, we will create a CI/CD pipeline. CI/CD stands for Continuous Integration and Continuous Delivery/Deployment. In this post, we will create a Github workflow.
 
-In this section, we will follow theses steps to setup our Github workflow:
+We will follow theses steps to setup our Github workflow:
 1. Save our access token into a secret
 2. Configure workflow triggers
 3. Create a `build` job for site generation
 4. Create a `deploy` job for deployment
 
-Let's create our secret!
+First, let's create our secret!
 
 Click on **Settings**, the button is placed in the navigation bar of your repository.
 
@@ -240,15 +257,7 @@ Now let's create our first job `build`:
 name: Deploy
 
 on:
-  # Triggered when you push to `main`
-  push:
-    branches:
-      - main
-
-  # Triggered when you have to PR pointing to main.
-  pull_request:
-    branches:
-      - main
+  # (truncated)
 
 jobs:
   # Job for generating .lume/_site directory and its files
@@ -281,20 +290,12 @@ Then let's create our second job `deploy`, executed after the `build` job. This 
 name: Deploy
 
 on:
-  # Triggered when you push to `main`
-  push:
-    branches:
-      - main
-
-  # Triggered when you have to PR pointing to main
-  pull_request:
-    branches:
-      - main
+  # (truncated)
 
 jobs:
   # Job for generating .lume/_site directory and its files
   build:
-    # truncated...
+    # (truncated)
 
   # Job for deploying .lume/_site
   deploy:
@@ -323,4 +324,6 @@ jobs:
         run: deno task deploy ${{ endsWith(github.ref, '/main') && '--prod' || '' }}
 ```
 
-Push your changes and appreciate your deployment!
+Push your changes and check your deployment in `Actions` tab of your repository.
+
+Happy blogging!
