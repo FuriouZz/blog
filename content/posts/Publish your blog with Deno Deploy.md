@@ -327,3 +327,79 @@ jobs:
 Push your changes and check your deployment in `Actions` tab of your repository.
 
 Happy blogging!
+
+## Create a PR comment
+
+Now it would be interesting to create to our PR with our deployment URLs.
+
+To create this comment, we will create another step with some Javascript code. Also, we need to edit our deployment step to catch the `STDOUT` of our command.
+
+For that, we will use two more actions:
+* [mathiasvr/command-output](https://github.com/mathiasvr/command-output) will expose the `STDOUT` of our command.
+* [actions/github-script](https://github.com/actions/github-script) will execute a Javascript without the `STDOUT` content and create a PR comment.
+
+```yml {label=my-awesome-blog/.github/workflows/deploy.yml}
+name: Deploy
+
+on:
+  # (truncated)
+
+jobs:
+  # Job for generating .lume/_site directory and its files
+  build:
+    # (truncated)
+
+  # Job for deploying .lume/_site
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Install Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: _site
+          path: .lume/_site/
+
+      - name: Upload to Deno Deploy
+        env:
+          DENO_DEPLOY_TOKEN: ${{ secrets.DENO_DEPLOY_TOKEN }}
+        run: deno task deploy ${{ endsWith(github.ref, '/main') && '--prod' || '' }} # [!code --]
+        id: deploy # [!code ++]
+        uses: mathiasvr/command-output@v2.0.0 # [!code ++]
+        with: # [!code ++]
+          run: deno task deploy ${{ endsWith(github.ref, '/main') && '--prod' || '' }} # [!code ++]
+
+      - name: Create comment with deploy output # [!code ++]
+        if: github.event_name == 'pull_request' # [!code ++]
+        uses: actions/github-script@v7 # [!code ++]
+        with: # [!code ++]
+          script: | # [!code ++]
+            const output = ` # [!code ++]
+              ${{ steps.deploy.outputs.stdout }} # [!code ++]
+
+              *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`* # [!code ++]
+            `; # [!code ++]
+
+            github.rest.issues.createComment({ # [!code ++]
+              issue_number: context.issue.number, # [!code ++]
+              owner: context.repo.owner, # [!code ++]
+              repo: context.repo.repo, # [!code ++]
+              body: output # [!code ++]
+            }) # [!code ++]
+```
+
+## What's next?
+
+Now we have everything to create pages and posts, then to deploy your blog online on a server.
+
+Happy blogging!
