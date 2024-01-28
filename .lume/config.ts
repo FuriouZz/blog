@@ -27,7 +27,8 @@ const site = lume({ dest: `.lume/_site` })
 const myFiles = [
   "_data/i18n.yml",
   "_data.yml",
-  "assets/logo.svg",
+  "assets/dark.svg",
+  "assets/light.svg",
   "favicons/apple-touch-icon-60x60.png",
   "favicons/apple-touch-icon-76x76.png",
   "favicons/apple-touch-icon-114x114.png",

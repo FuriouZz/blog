@@ -1,18 +1,23 @@
 lang: en
 
 home:
-  welcome: Let's talk about code <br>and computer graphics !
+  welcome: Let's talk about code
 
 menu_links:
   - href: https://chrsmsln.com
     text: About
 
-logo: <img src="/assets/logo.svg" />
+logo: |
+  <picture>
+    <source srcset="/assets/dark.svg" media="(prefers-color-scheme: dark)" />
+    <img src="/assets/light.svg" />
+  </picture>
+
 
 # Metas plugin https://lume.land/plugins/metas/#description
 metas:
   site: chrsmsln
-  description: Let's talk about code and computer graphics !
+  description: Let's talk about code
   title: "=title"
   image: "=image"
   twitter: "@furiouzz"
