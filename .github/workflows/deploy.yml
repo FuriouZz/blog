@@ -79,23 +79,23 @@ jobs:
           path: .lume/_site/
 
       - name: Upload to Deno Deploy
+        uses: mathiasvr/command-output@v2.0.0
         id: deploy
         env:
           DENO_DEPLOY_TOKEN: ${{ secrets.DENO_DEPLOY_TOKEN }}
-        run: deno task deploy ${{ endsWith(github.ref, '/main') && '--prod' || '' }}
+        with:
+          run: deno task deploy ${{ endsWith(github.ref, '/main') && '--prod' || '' }}
 
       - name: Create comment with deploy output
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
-        env:
-          DEPLOY_OUTPUT: "${{ steps.deploy.outputs.stdout }}"
         with:
           script: |
             const output = `
               <details><summary>Output</summary>
 
                 \`\`\`bash
-                ${process.env.DEPLOY_OUTPUT}
+                ${{ steps.deploy.outputs.stdout }}
                 \`\`\`
 
               </details>
