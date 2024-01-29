@@ -451,4 +451,4 @@ For more information:
 
 Happy blogging :tada:!
 
-*Thanks a lot to [Tatiana](https://github.com/tekeinhor) for the help and the feddback in this blog post.*
+*Thanks a lot to [Tatiana](https://github.com/tekeinhor) for the help and the feedback in this blog post.*

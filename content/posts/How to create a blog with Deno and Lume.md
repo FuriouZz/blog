@@ -364,4 +364,4 @@ For more information, I invite you to:
 * Fork [theme-simple-blog](https://github.com/lumeland/theme-simple-blog/tree/main)
 * Experiment with [Deno](https://deno.com/)
 
-*Thanks a lot to [Tatiana](https://github.com/tekeinhor) for the help and the feddback in this blog post.*
+*Thanks a lot to [Tatiana](https://github.com/tekeinhor) for the help and the feedback in this blog post.*
