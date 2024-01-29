@@ -450,3 +450,5 @@ For more information:
 * Follow [Lume - Deployment section](https://lume.land/docs/advanced/deployment/) for your specific use case
 
 Happy blogging :tada:!
+
+*Thanks a lot to [Tatiana](https://github.com/tekeinhor) for the help and the feddback in this blog post.*
