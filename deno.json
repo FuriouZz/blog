@@ -13,7 +13,7 @@
   "tasks": {
     "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A - --config .lume/config.ts",
     "build": "deno task lume",
-    "serve": "deno task lume -s",
+    "dev": "deno task lume -s",
     "deploy": "deno run -A https://deno.land/x/deploy@1.10.0/deployctl.ts deploy"
   },
   "deploy": {

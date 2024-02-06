@@ -1,6 +1,5 @@
 ---
-title: How to create a blog with Deno and Lume
-url: ./how-to-create-a-blog-with-deno-and-lume/
+date: 2024-01-02
 metas:
   description: |
     In this blog post, you will learn to create a blog with Deno and Lume.
@@ -92,7 +91,7 @@ Once Deno is installed, we will edit `my-awesome-blog/deno.json` file:
   "tasks": {
     "lume": "echo \"import 'https://deno.land/x/lume@v2.0.1/cli.ts'\" | deno run --unstable -A - --config .lume/config.ts",
     "build": "deno task lume",
-    "serve": "deno task lume -s"
+    "dev": "deno task lume -s"
   }
 }
 ```
@@ -114,7 +113,7 @@ For example, we can rewrite `lume` task this way:
     "lume": "echo \"import 'https://deno.land/x/lume@v2.0.1/cli.ts'\" | deno run --unstable -A - --config .lume/config.ts", // [!code --]
     "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A - --config .lume/config.ts", // [!code ++]
     "build": "deno task lume",
-    "serve": "deno task lume -s"
+    "dev": "deno task lume -s"
   }
 }
 ```
@@ -137,13 +136,14 @@ export default site;
 > As explained before we can directly import Lume with `import lume from "lume/mod.ts"` and Simple Blog theme with `import blog from "blog/mod.ts"` instead of writing the entire url thanks to `imports` field.
 
 Open your terminal in your `my-awesome-blog` directory, then run:
+
 ```bash
-$ deno task serve
+$ deno task dev
 ```
 
 TADA :tada:! Your blog is running (locally) at [http://localhost:3000/](http://localhost:3000/).
 
-![Blog running locally](assets/offline.png){transform-images="avif webp jpg 800@2"}
+![Blog running locally](../assets/2024/01/offline.png){transform-images="avif webp jpg 800@2"}
 
 ## Change title and welcome message
 
@@ -200,7 +200,7 @@ metas:
 
 Refresh and see:
 
-![Blog welcome message and title changed](./assets/customize.png){transform-images="avif webp jpg 800@2"}
+![Blog welcome message and title changed](../assets/2024/01/customize.png){transform-images="avif webp jpg 800@2"}
 
 ## Create our first page
 
@@ -244,11 +244,11 @@ This is an example of an about me page.
 
 We made the page visible in the menu.
 
-![About page is visible in the top right menu](./assets/menu.png){transform-images="avif webp jpg 800@2"}
+![About page is visible in the top right menu](../assets/2024/01/menu.png){transform-images="avif webp jpg 800@2"}
 
 Now, let's visit our page.
 
-![Page is displayed without CSS](./assets/page-no-css.png){transform-images="avif webp jpg 800@2"}
+![Page is displayed without CSS](../assets/2024/01/page-no-css.png){transform-images="avif webp jpg 800@2"}
 
 Oh...What happened?
 
@@ -280,7 +280,7 @@ This is an example of an about me page.
 
 TADA :tada:!
 
-![Page is displayed with our theme](./assets/page-with-css.png){transform-images="avif webp jpg 800@2"}
+![Page is displayed with our theme](../assets/2024/01/page-with-css.png){transform-images="avif webp jpg 800@2"}
 
 ## Share data with multiple pages
 
@@ -316,7 +316,7 @@ We are getting there!
 
 <div style="justify-content: center; display: flex;">
 
-![Show new page URL](./assets/pretty-url.png){transform-images="avif webp jpg 400@2"}
+![Show new page URL](../assets/2024/01/pretty-url.png){transform-images="avif webp jpg 400@2"}
 
 </div>
 
@@ -349,11 +349,11 @@ You may have noticed that we added a new property `type`. Simple Blog theme need
 
 Once you have refreshed your homepage, you will notice two things: your freshly created post and also the `Archives` item in the menu.
 
-![Home page with a single post and new archive link in the menu](./assets/posts.png){transform-images="avif webp jpg 800@2"}
+![Home page with a single post and new archive link in the menu](../assets/2024/01/posts.png){transform-images="avif webp jpg 800@2"}
 
 Now, look at the title and content of your first post:
 
-![Our new post](./assets/single-post.png){transform-images="avif webp jpg 800@2"}
+![Our new post](../assets/2024/01/single-post.png){transform-images="avif webp jpg 800@2"}
 
 ## What's next?
 
@@ -363,3 +363,5 @@ For more information, I invite you to:
 * Read [Lume documentation](https://lume.land/docs/overview/about-lume/)
 * Fork [theme-simple-blog](https://github.com/lumeland/theme-simple-blog/tree/main)
 * Experiment with [Deno](https://deno.com/)
+
+*Thanks a lot to [Tatiana](https://github.com/tekeinhor) for the help and the feedback in this blog post.*
