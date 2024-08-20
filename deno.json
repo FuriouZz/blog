@@ -1,7 +1,7 @@
 {
   "lock": false,
   "imports": {
-    "lume/": "https://deno.land/x/lume@v2.0.2/",
+    "lume/": "https://deno.land/x/lume@v2.2.4/",
     "shikiji/": "https://deno.land/x/lume_shikiji@0.0.7/",
     "theme/": "https://deno.land/x/furiouzz@0.0.12/lume-blog-theme/"
   },
