@@ -5,15 +5,10 @@
     "shikiji/": "https://deno.land/x/lume_shikiji@0.0.7/",
     "theme/": "https://deno.land/x/furiouzz@0.0.12/lume-blog-theme/"
   },
-  "scopes": {
-    "https://deno.land/x/lume@v2.0.2/": {
-      "https://deno.land/x/lume@v2.0.2/plugins/markdown.ts": "./.lume/overrides/markdown.ts"
-    }
-  },
   "tasks": {
-    "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A - --config .lume/config.ts",
+    "lume": "echo \"import 'lume/cli.ts'\" | deno run -A - --config .lume/config.ts",
     "build": "deno task lume",
-    "dev": "deno task lume -s",
+    "dev": "LUME_NOCACHE=true LUME_DRAFTS=true deno task lume -s",
     "deploy": "deno run -A https://deno.land/x/deploy@1.10.0/deployctl.ts deploy"
   },
   "deploy": {
@@ -26,5 +21,10 @@
       ".lume/_site/**/*"
     ],
     "entrypoint": ".lume/serve.ts"
+  },
+  "compilerOptions": {
+    "types": [
+      "lume/types.ts"
+    ]
   }
 }

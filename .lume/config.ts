@@ -3,7 +3,12 @@ import theme from "theme/mod.ts";
 import markdownItBlockquote from "./plugins/markdownItBlockquote.ts";
 import titleFromFilename from "./plugins/titleFromFilename.ts";
 
-const site = lume({ dest: ".lume/_site" })
+const location = new URL("/", "https://blog.chrsmsln.com");
+
+const site = lume({
+	dest: ".lume/_site",
+	location,
+})
 	.use(
 		theme({
 			shikiji: {
@@ -17,6 +22,7 @@ const site = lume({ dest: ".lume/_site" })
 						"json",
 						"typescript",
 						"ini",
+						"css",
 					],
 				},
 				themes: {
