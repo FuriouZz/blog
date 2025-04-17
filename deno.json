@@ -1,7 +1,7 @@
 {
   "lock": false,
   "imports": {
-    "lume/": "https://deno.land/x/lume@v2.2.4/",
+    "lume/": "https://deno.land/x/lume@v2.5.3/",
     "shikiji/": "https://deno.land/x/lume_shikiji@0.0.7/",
     "theme/": "https://deno.land/x/furiouzz@0.0.12/lume-blog-theme/"
   },
@@ -22,6 +22,7 @@
     ],
     "entrypoint": ".lume/serve.ts"
   },
+  "nodeModulesDir": "auto",
   "compilerOptions": {
     "types": [
       "lume/types.ts"
