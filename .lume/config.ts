@@ -22,7 +22,9 @@ const site = lume({
 						"json",
 						"typescript",
 						"ini",
+						"html",
 						"css",
+						"clojure"
 					],
 				},
 				themes: {
